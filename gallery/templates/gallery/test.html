@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<p>Mediums menu: </p>
+		<b>
+		{% for medium_menu_item in mediums_menu %}
+		{{medium_menu_item.name}}<br />
+		{% endfor %}
+		</b>
+		<p>Categories Menu</p>
+		{% for category_menu_item in category_menu %}
+		{{category_menu_item.name}}<br />
+		{% endfor %}
+	
+		<p>----------Current--------</p>
+		<p>Medium: {{medium}}</p>
+		<p>Category: {{category}}</p>
+		{% for image in selected_images %}
+			<p>---------{{image.name}}--------<p>
+			<p>Description: {{image.description|linebreaks}}</p>
+			<p>Small image:</p>
+			<img src={{image.gallery_img_small.url}}>
+		{% endfor %}
+	</body>
+</html>
+
