@@ -1,0 +1,42 @@
+@import url("http://fonts.googleapis.com/css?family=Playfair+Display+SC");
+
+.sidemenu{
+	font-family: 'Playfair Display SC', serif;
+	color: #dfd560;
+	font-size: 18px;
+}
+
+.topmargin{
+	margin-top:15px;
+}
+
+.bordercolor{
+	border-color:#5e5037;
+	border-style:solid;
+	border-width:1px;
+}
+
+.menu_image{
+	float:left;
+	position: relative;
+
+}
+
+.darken:before{	
+  		content: "";
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+
+}
+
+ 
+.darken:hover:before {
+    background: rgba(0,0,0, 0.2);
+ }
+
+
