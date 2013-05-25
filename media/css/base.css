@@ -1,5 +1,9 @@
 @import url("http://fonts.googleapis.com/css?family=Playfair+Display+SC");
 
+.textcolor{
+	color: #e7cc4f;
+}
+
 .sidemenu{
 	font-family: 'Playfair Display SC', serif;
 	color: #dfd560;
@@ -19,19 +23,17 @@
 .menu_image{
 	float:left;
 	position: relative;
+	cursor: pointer;
 
 }
 
 .darken:before{	
-  		content: "";
-
+  	content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-
-
 }
 
  

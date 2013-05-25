@@ -52,13 +52,13 @@
 							<li><div class="darken menu_image" style="height:32px: margin-bottom:0px"><img src="/media/images/menu_bar/gallery.png"></div>
 							<ul>
 									{% for medium_menu_item in mediums_menu %}
-									<li><a href="#">{{medium_menu_item.name}}</a></li>
+									<li><a href="/gallery/{{medium_menu_item.name}}/">{{medium_menu_item.name}}</a></li>
 									{% endfor %}
 								</ul>
 							</li>
-							<li ><div class="darken menu_image" style="height:32px"><img src="/media/images/menu_bar/bio.png" ></div></li>
-							<li><div class="darken menu_image" style="height:32px"><img src="/media/images/menu_bar/faq.png"></div></li>
-							<li><div class="darken menu_image" style="height:32px"><img src="/media/images/menu_bar/contact.png"></div></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/bio/"><img src="/media/images/menu_bar/bio.png" ></a></div></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/faq/"><img src="/media/images/menu_bar/faq.png"></a></div></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/contact/"><img src="/media/images/menu_bar/contact.png"></a></div></li>
 							<li><img src="/media/images/menu_bar/right.png" class="menu_image"></li>
 								
 						</ul>

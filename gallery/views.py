@@ -7,13 +7,13 @@ from gallery.models import Category
 def index(request):
     return HttpResponse("Hello, world. You're the galleries index.")
 
-def gallery(request, medium, category):
+def gallery(request, medium, category=None):
+
+    if category == None:
+        category = Category.objects.all()[0].name    #just use first category as default
 
     selected_images = get_list_or_404(GalleryImage, medium=medium, category=category)
     mediums_menu = Medium.objects.all()
-    
-    
-    
     
     category_menu = []
     for i in GalleryImage.objects.filter(medium=medium):
