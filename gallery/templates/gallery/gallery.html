@@ -19,6 +19,8 @@
 		
 		if(src != changeTo)
 		{
+			hideorderprint();
+			
 			$("#previewImg").fadeOut(150, function() {
 			  $(this).load(function () { $(this).fadeIn(150);});
 			  $(this).attr("src", changeTo);
@@ -79,14 +81,31 @@
 	
 	function showorderprint()
 	{
+		updatesizeselection($("#sizedropdown option:selected").text());
+		$('#orderprint').hide();
 		$('#orderinfo').slideDown();
 		
 	}
 	
+	function hideorderprint()
+	{
+		$('#orderprint').show();
+		$('#orderinfo').hide();
+	}
+	
 	function updatesizeselection(value)
 	{
+		switch(value)
+		{
+		{% for print_size in print_sizes %}
+		case "{{print_size.print_size}}":
+			$('#itemprice').html("{{print_size.price|floatformat:2}}")
+		  break;
+		{% endfor %}
 		
-		alert(value);
+		default:
+		  alert("wtf" + value);
+		}
 	}
 	
 
@@ -121,16 +140,24 @@
 	   		  	    <!--Print info-->
 	   		  	    <div id='orderinfo'  class="transparentbox" style="display:none">
 	   		  	    	<div style="padding-left:20px; height:20px">
-  				  	    	<div class="printinfotext" style="float:left;">
-  				  	    		Print Size: 
-  				  	    	</div>
-  				  	    	<select class="listbox" onchange="updatesizeselection(this.value);">
-							   <option>18x24</option>
-							   <option>28x22</option>
-							   <option>8x11</option>
-							</select>
+  				  	    	<div style="width:100%;">
+	  				  	    	<div class="printinfotext" style="float:left">
+	  				  	    		Print Size: 
+	  				  	    	</div>
+	  				  	    	<select id="sizedropdown" class="listbox" style="float:left" onchange="updatesizeselection(this.value);">
+								{% for print_size in print_sizes %}
+								   <option>{{print_size.print_size}}</option>
+								 {% endfor %}
+								</select>
+								
+								<div id="itemprice" class="printinfotext" style="float:right; margin-right:10px">$50.00</div>
+								<div class="printinfotext" style="float:right; margin-right:10px">Price: </div>
+							</div>
+							
+
+
+
 						</div>
-						<div>asdfasf</div>
   				  	</div>
 	   		  	    
 				</div>

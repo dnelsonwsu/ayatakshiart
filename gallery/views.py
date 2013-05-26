@@ -3,6 +3,7 @@ from django.shortcuts import render, get_list_or_404
 from gallery.models import GalleryImage
 from gallery.models import Medium
 from gallery.models import Category
+from gallery.models import PrintSize
 from common.views import get_common_context
 
 def index(request):
@@ -29,6 +30,8 @@ def gallery(request, medium, category=None):
     
     default_img = selected_images[0]
     
+    print_sizes = PrintSize.objects.all()
+    
     context = get_common_context(request)
         
     context['category_menu'] = category_menu 
@@ -36,7 +39,9 @@ def gallery(request, medium, category=None):
     context['category'] = category
     context['default_img'] = default_img
     context['selected_images'] = selected_images
+    context['print_sizes'] = print_sizes
     
     return render(request, 'gallery/gallery.html', context)
 
+    
     
