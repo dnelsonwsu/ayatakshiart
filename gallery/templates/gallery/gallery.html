@@ -76,6 +76,19 @@
 		}
 	}
 	addLoadEvent(preloader);
+	
+	function showorderprint()
+	{
+		$('#orderinfo').slideDown();
+		
+	}
+	
+	function updatesizeselection(value)
+	{
+		
+		alert(value);
+	}
+	
 
 {% endblock %}
 
@@ -91,13 +104,35 @@
 				</div>
 
 				<div class="topmargin" style="width:393px; float:left">
+					<!--Preview image-->
 					<div class="bordercolor" border="1" style="height:240px; width=392px">
 				      	<img id="previewImg" src="{{default_img.gallery_img_large.url}}" >
+					
 					</div>
-			      	<div class="bordercolor" style="position:relative; width:100%; height:auto; min-height:100px; margin-top: 15px; padding-top:10px;padding-bottom:10px; background-color:rgba(0,0,0,0.5);">
+					
+					<!--Description-->
+			      	<div class="transparentbox">
 	   		  	    	<div id="description" class="descriptiontext" style="padding-left: 20px; margin-top:10px; min-height:50px"><font style="">{{default_img.description|linebreaksbr}}</font></div>
-  				  	    <div style="margin-top:10px; margin-left:20px"><img id="add_to_cart" src="/media/images/add_to_cart.png" style="left:20px;"></div>
+  				  	    <div style="margin-top:10px; margin-left:20px">
+  				  	    	<img id="orderprint" src="/media/images/order_print.png" style="left:20px;	cursor: pointer;" onclick="showorderprint()" >
+  				  	    </div>
 	   		  	    </div>
+	   		  	    
+	   		  	    <!--Print info-->
+	   		  	    <div id='orderinfo'  class="transparentbox" style="display:none">
+	   		  	    	<div style="padding-left:20px; height:20px">
+  				  	    	<div class="printinfotext" style="float:left;">
+  				  	    		Print Size: 
+  				  	    	</div>
+  				  	    	<select class="listbox" onchange="updatesizeselection(this.value);">
+							   <option>18x24</option>
+							   <option>28x22</option>
+							   <option>8x11</option>
+							</select>
+						</div>
+						<div>asdfasf</div>
+  				  	</div>
+	   		  	    
 				</div>
 
 				<div class="topmargin" style="width:270px; float:left">

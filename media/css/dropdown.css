@@ -44,6 +44,7 @@ nav ul li:hover a {
 	font-family: 'Playfair Display SC', serif;
 	color: #dfd560;
 	font-size: 18px;
+	outline: 0;
 }
 		
 nav ul li a {

@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 class Category(models.Model):
     name = models.CharField(max_length=100, primary_key=True, help_text='Art category. eg Landscapes, Radharani, etc')
@@ -12,6 +13,30 @@ class Medium(models.Model):
     def __unicode__(self):
         return self.name
 
+
+class CurrencyField(models.DecimalField):
+    """
+    Only changes output into a quantized format. Everything else is the same.
+    """
+    def __init__(self, *args, **kwargs):
+        kwargs['max_digits'] =  8
+        kwargs['decimal_places'] = 2
+        super(CurrencyField, self).__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        try:
+            return super(CurrencyField, self).to_python(value).quantize(Decimal('0.01'))
+        except AttributeError:
+            return None
+
+
+class PrintSize(models.Model):
+    print_size = models.CharField(max_length=50, primary_key=True)
+    price = CurrencyField()
+        
+    def __unicode__(self):
+        return self.print_size
+    
 class GalleryImage(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)

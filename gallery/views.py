@@ -3,6 +3,7 @@ from django.shortcuts import render, get_list_or_404
 from gallery.models import GalleryImage
 from gallery.models import Medium
 from gallery.models import Category
+from common.views import get_common_context
 
 def index(request):
     return HttpResponse("Hello, world. You're the galleries index.")
@@ -28,12 +29,13 @@ def gallery(request, medium, category=None):
     
     default_img = selected_images[0]
     
-    context = {'mediums_menu': mediums_menu,
-               'category_menu': category_menu,
-               'medium': medium,
-               'category': category,
-               'default_img': default_img,
-               'selected_images' : selected_images}
+    context = get_common_context(request)
+        
+    context['category_menu'] = category_menu 
+    context['medium'] = medium
+    context['category'] = category
+    context['default_img'] = default_img
+    context['selected_images'] = selected_images
     
     return render(request, 'gallery/gallery.html', context)
 

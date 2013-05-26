@@ -41,4 +41,29 @@
     background: rgba(0,0,0, 0.2);
  }
 
+.notificationbartext
+{
+	color: rgb(223, 213, 96);
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+	font-size: 14px
+	
+}
+
+.notificationbar{
+	/*display:none;*/
+	left:0px;
+	top:0px; 
+	width:100%; 
+	height: 30px; 
+	background-color: #000000; 
+	position: fixed; 
+	z-index: 100; 
+	color: #FF0000; 
+	border-bottom: 1px solid rgb(242, 222, 100);
+	background: linear-gradient(to bottom, #88160F 0%, #380606 100%) repeat scroll 0 0 transparent;
+	/*opacity:0.4;
+	filter:alpha(opacity=40); */
+}
+
 

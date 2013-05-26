@@ -1,7 +1,7 @@
 .descriptiontext
 {
 	font-family: Verdana, Geneva, sans-serif;
-	font-size:12px;
+	font-size:14px;
 	color: #e7cc4f;
 }
 
@@ -40,4 +40,51 @@
 
 .tint:hover:before {
 	background: rgba(255,255,255, 0.2);
+}
+
+
+.listbox select {
+   background: transparent;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   -webkit-appearance: none;
+}
+   
+.listbox {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background: #111111;
+	margin-left:15px;
+}
+
+.vertical{
+    position:absolute;
+    top:50%;    
+    left:0;
+    width:100%;
+}
+
+.transparentbox
+{
+	border-color:#5e5037;
+	border-style:solid;
+	border-width:1px;
+	position:relative; 
+	width:100%; 
+	height:auto; 
+	min-height:100px; 
+	margin-top: 15px; 
+	padding-top:10px;
+	padding-bottom:10px; 
+	background-color:rgba(0,0,0,0.5);
+}
+
+.printinfotext
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size:14px;
+	color: #e7cc4f;
 }
