@@ -43,28 +43,23 @@
 }
 
 
-.listbox select {
+.listbox  {
    background: transparent;
-   padding: 5px;
+   padding: 2px;
    font-size: 16px;
    line-height: 1;
-   border: 0;
+   border: 1px solid #333333;
+   border-radius: 0px 0px 0px 0px;
    border-radius: 0;
    -webkit-appearance: none;
+   color: #CCCCCC;
+   outline: 0;
 }
    
-.listbox {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background: #111111;
-	margin-left:15px;
-}
-
-.vertical{
-    position:absolute;
-    top:50%;    
-    left:0;
-    width:100%;
+.verticallyCentered{
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 
 .transparentbox
@@ -79,6 +74,13 @@
 	padding-top:10px;
 	padding-bottom:10px; 
 	background-color:rgba(0,0,0,0.5);
+}
+
+.clearfix:after { 
+   content: " ";
+   display: block; 
+   height: 0; 
+   clear: both;
 }
 
 .printinfotext

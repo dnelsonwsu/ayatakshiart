@@ -2,14 +2,16 @@
 
 
 {% block head %}
-<link href="/media/css/gallery.css" rel="stylesheet">
+<link href="/static/css/gallery.css" rel="stylesheet">
+
 {% endblock %}
 
 {% block javascript %}
 
 	var preload_images = new Array();
-	
-	function changePreviewImage(changeTo, description)
+
+	var current_image_name = "{{default_img.name}}";	
+	function changePreviewImage(name, changeTo, description)
 	{
 	  	var $img = jQuery("#previewImg");
 		var src = $img.attr("src");
@@ -19,6 +21,8 @@
 		
 		if(src != changeTo)
 		{
+			current_image_name = name;
+			
 			hideorderprint();
 			
 			$("#previewImg").fadeOut(150, function() {
@@ -28,14 +32,11 @@
 			  
 			  if(description)
 			  {
-			  	console.log(description);
 			  	$('#description').html(description);					  
 			  }
 		
 			});
 		}
-	
-	
 	}
 	
 	var GalleryImages = 
@@ -50,16 +51,11 @@
 	{
 		if (document.images) 
 		{
-			var index = 0;
 			for (var i = 0; i < GalleryImages.length; i++)
 			{
-				preload_images[index] = new Image();
-				preload_images[index].onload = function(){console.log('loaded');}
-				preload_images[index].src = GalleryImages[i];
-	
-				console.log(i);
-				console.log(GalleryImages[i]);
-				index++;
+				preload_images[i] = new Image();
+				preload_images[i].onload = function(){console.log('loaded');}
+				preload_images[i].src = GalleryImages[i];
 			}
 		}
 	}
@@ -99,14 +95,71 @@
 		{
 		{% for print_size in print_sizes %}
 		case "{{print_size.print_size}}":
-			$('#itemprice').html("{{print_size.price|floatformat:2}}")
+			$('#itemprice').html("${{print_size.price|floatformat:2}}");
+			$('#printsizedescription').html("<strong>Print Information:</strong> {{print_size.description}}");
+			
 		  break;
 		{% endfor %}
-		
-		default:
-		  alert("wtf" + value);
 		}
 	}
+	
+	
+	var cart_updated = function(res, status)
+	{
+	    if (status == "success")
+	    {
+	        $('#numcartitems').text(res.responseJSON["cartcount"])
+	    }
+	}
+	
+	function addtocart()
+	{
+
+		var size = $('#sizedropdown').val()
+		var data = { "name":current_image_name,"size": size};
+						 
+        var args = { type:"POST", url:"/cart/update/", data:data, complete:cart_updated };
+        $.ajax(args);
+    
+	    return false;
+	}
+	
+	function getCookie(name)
+	{
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+	
+	var csrftoken = getCookie('csrftoken');
+	
+	function csrfSafeMethod(method)
+	{
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	
+	$.ajaxSetup({
+	    crossDomain: false, // obviates need for sameOrigin test
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type)) {
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});
+	
+
+
 	
 
 {% endblock %}
@@ -115,7 +168,7 @@
 				<div class="topmargin sidemenu" style="width: 140px; height: 100%; float:left; margin-left: 5px " >
 					<center>
 						<font class="sidemenu">{{category}}</font>
-						<img id="add_to_cart" src="/media/images/horz_separator.png">
+						<img id="add_to_cart" src="/static/images/horz_separator.png">
 						{% for category_menu_item in category_menu %}
 						{{category_menu_item.name}}<br />
 						{% endfor %}
@@ -133,29 +186,37 @@
 			      	<div class="transparentbox">
 	   		  	    	<div id="description" class="descriptiontext" style="padding-left: 20px; margin-top:10px; min-height:50px"><font style="">{{default_img.description|linebreaksbr}}</font></div>
   				  	    <div style="margin-top:10px; margin-left:20px">
-  				  	    	<img id="orderprint" src="/media/images/order_print.png" style="left:20px;	cursor: pointer;" onclick="showorderprint()" >
+  				  	    	<img id="orderprint" src="/static/images/order_print.png" style="left:20px;	cursor: pointer;" onclick="showorderprint()" >
   				  	    </div>
 	   		  	    </div>
 	   		  	    
 	   		  	    <!--Print info-->
-	   		  	    <div id='orderinfo'  class="transparentbox" style="display:none">
-	   		  	    	<div style="padding-left:20px; height:20px">
+	   		  	    <div id='orderinfo' class="transparentbox clearfix" style="display:none;" >
+	   		  	    	<div style="padding-left:20px;">
   				  	    	<div style="width:100%;">
-	  				  	    	<div class="printinfotext" style="float:left">
-	  				  	    		Print Size: 
+	  				  	    	<div class="printinfotext" style="float:left; text-align: center; line-height:25px;">
+	  				  	    		<strong class="verticallyCentered">Print Size:</strong> 
 	  				  	    	</div>
-	  				  	    	<select id="sizedropdown" class="listbox" style="float:left" onchange="updatesizeselection(this.value);">
+	  				  	    	
+	  				  	    	<select id="sizedropdown" class="listbox" style="margin-left: 5px; float:left" onchange="updatesizeselection(this.value);">
 								{% for print_size in print_sizes %}
 								   <option>{{print_size.print_size}}</option>
 								 {% endfor %}
 								</select>
 								
 								<div id="itemprice" class="printinfotext" style="float:right; margin-right:10px">$50.00</div>
-								<div class="printinfotext" style="float:right; margin-right:10px">Price: </div>
+								<div class="printinfotext" style="float:right; margin-right:10px"><strong>Price: </strong></div>
 							</div>
 							
-
-
+							<div style="clear:both;">
+								<div style="float:right; margin-right:10px;margin-top:10px">
+									<img id="addtocartbtn" src="/static/images/add_to_cart.png" style="cursor: pointer;" onclick="addtocart()" >
+								</div>
+								
+								<div id="printsizedescription" class="printinfotext" style="float:left; width: 240px; margin-right:10px; margin-top:10px;">
+									
+								</div>
+							</div>
 
 						</div>
   				  	</div>
@@ -165,7 +226,7 @@
 				<div class="topmargin" style="width:270px; float:left">
 					<div style="width:230px; height=100%; margin-left:25px">
 						{% for image in selected_images %}
-						<div class="tint" onclick="changePreviewImage('{{image.gallery_img_large.url}}', '{{image.description|linebreaksbr}}');">
+						<div class="tint" onclick="changePreviewImage('{{image.name}}','{{image.gallery_img_large.url}}', '{{image.description|linebreaksbr}}');">
 					      <img  src="{{image.gallery_img_small.url}}">
 					    </div>
 

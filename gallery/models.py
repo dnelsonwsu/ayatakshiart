@@ -17,6 +17,7 @@ class Medium(models.Model):
 class PrintSize(models.Model):
     print_size = models.CharField(max_length=50, primary_key=True)
     price = models.DecimalField(max_digits=4, decimal_places=2)
+    description = models.TextField(max_length=300)
     
     def __unicode__(self):
         return self.print_size

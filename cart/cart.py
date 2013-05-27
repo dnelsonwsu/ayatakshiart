@@ -25,7 +25,7 @@ class Cart:
         for item in self.cart.item_set.all():
             yield item
 
-    def items(self, request):
+    def items(self):
         return self.cart.item_set.all()
 
     def new(self, request):
