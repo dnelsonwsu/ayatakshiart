@@ -35,14 +35,16 @@
 
 
 	</head>
-	<body bgcolor="#111111" style="margin:0px"> 
+	<body bgcolor="#111111" style="margin:0px; "> 
 		
 		<!--Notification bar info-->
 		<div id='notification-bar' class="notificationbar" >
-			<div class='notificationbartext' style='text-align:right; margin-right: 20px; line-height: 40px;'>
-				Shopping cart: 
-				<a href="/cart/view"><span id="numcartitems"> {{cart.items|length}} </span> items</a>
+			<a href="/cart/view">
+				<div class="notificationbartext" style='float:right; margin-right: 50px; line-height: 40px;'>
+					<span style="margin-left:5px;" id="numcartitems"><strong>{{cart.items|length}} </strong></span> item[s]
 				</div>
+				<div style="float:right"><img src='/static/images/cart.png'></div>
+			</a>
 		</div>
 
 		<!--Main-->
@@ -81,6 +83,7 @@
 					<nav style="margin-top: 0px; margin-bottom:0px">
 						<ul style="padding-left: 0px; padding-right: 0px;">	
 							<li><img src="/static/images/menu_bar/left.png" class="menu_image"></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/home/"><img src="/static/images/menu_bar/home.png" ></a></div></li>
 							<li><div class="darken menu_image" style="height:32px: margin-bottom:0px"><img src="/static/images/menu_bar/gallery.png"></div>
 							<ul>
 									{% for medium_menu_item in mediums_menu %}

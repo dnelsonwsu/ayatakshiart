@@ -115,7 +115,7 @@
 	    $('#numcartitems').text(res.responseJSON["cartcount"]);
 	    $('#addtocartbtn').hide();
 	    
-	    $('#addtocartbtndiv').html("<div><strong>Added to cart!<strong></div><div>[checkout]</div>");    
+	    $('#addtocartbtndiv').html("<div><img src='/static/images/green_check.png'>Added to cart!</div><div><img style='margin-top:10px; float:right;' src='/static/images/checkout_small.png'></div>");    
 	    
 	}
 	
@@ -216,11 +216,11 @@
 							</div>
 							
 							<div style="clear:both;">
-								<div id="addtocartbtndiv" class="printinfotext" style="width: 115px; float:right; margin-right:10px;margin-top:10px">
+								<div id="addtocartbtndiv" class="printinfotext" style="width: 128px; float:right; margin-right:10px;margin-top:10px">
 									<img id="addtocartbtn" src="/static/images/add_to_cart.png" style="cursor: pointer;" onclick="addtocart()" >
 								</div>
 								
-								<div id="printsizedescription" class="printinfotext" style="float:left; width: 230px; margin-right:10px; margin-top:10px;">
+								<div id="printsizedescription" class="printinfotext" style="float:left; width: 225px; margin-right:10px; margin-top:10px;">
 									
 								</div>
 							</div>
