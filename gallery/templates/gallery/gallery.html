@@ -78,6 +78,7 @@
 	function showorderprint()
 	{
 		updatesizeselection($("#sizedropdown option:selected").text());
+		$('#addtocartbtndiv').html("<img id=\x22addtocartbtn\x22 src=\x22/static/images/add_to_cart.png\x22 style=\x22cursor: pointer;\x22 onclick=\x22addtocart()\x22 >");
 		$('#orderprint').hide();
 		$('#orderinfo').slideDown();
 		
@@ -106,19 +107,24 @@
 	
 	var cart_updated = function(res, status)
 	{
-	    if (status == "success")
+	    if (status != "success")
 	    {
-	        $('#numcartitems').text(res.responseJSON["cartcount"])
+	    	return;
 	    }
+	    
+	    $('#numcartitems').text(res.responseJSON["cartcount"]);
+	    $('#addtocartbtn').hide();
+	    
+	    $('#addtocartbtndiv').html("<div><strong>Added to cart!<strong></div><div>[checkout]</div>");    
+	    
 	}
 	
 	function addtocart()
 	{
-
 		var size = $('#sizedropdown').val()
 		var data = { "name":current_image_name,"size": size};
-						 
-        var args = { type:"POST", url:"/cart/update/", data:data, complete:cart_updated };
+			
+		var args = { type:"POST", url:"/cart/add/", data:data, complete:cart_updated };
         $.ajax(args);
     
 	    return false;
@@ -165,21 +171,22 @@
 {% endblock %}
 
 {% block content %}
+				<!--Side Menu-->
 				<div class="topmargin sidemenu" style="width: 140px; height: 100%; float:left; margin-left: 5px " >
 					<center>
-						<font class="sidemenu">{{category}}</font>
-						<img id="add_to_cart" src="/static/images/horz_separator.png">
+						<span class="sidemenu" style="font-size: 20px;">Categories</span>
+						<img src="/static/images/horz_separator.png">
 						{% for category_menu_item in category_menu %}
-						{{category_menu_item.name}}<br />
+						<a href="/gallery/{{medium}}/{{category_menu_item.name}}/">{{category_menu_item.name}}</a><br />
 						{% endfor %}
 					</center>
 				</div>
 
-				<div class="topmargin" style="width:393px; float:left">
-					<!--Preview image-->
-					<div class="bordercolor" border="1" style="height:240px; width=392px">
-				      	<img id="previewImg" src="{{default_img.gallery_img_large.url}}" >
+				<div class="topmargin" style="width:393px; float:left; margin-left:5px">
 					
+					<!--Preview image-->
+					<div >
+				      	<img id="previewImg" class="bordercolor" src="{{default_img.gallery_img_large.url}}" >
 					</div>
 					
 					<!--Description-->
@@ -209,11 +216,11 @@
 							</div>
 							
 							<div style="clear:both;">
-								<div style="float:right; margin-right:10px;margin-top:10px">
+								<div id="addtocartbtndiv" class="printinfotext" style="width: 115px; float:right; margin-right:10px;margin-top:10px">
 									<img id="addtocartbtn" src="/static/images/add_to_cart.png" style="cursor: pointer;" onclick="addtocart()" >
 								</div>
 								
-								<div id="printsizedescription" class="printinfotext" style="float:left; width: 240px; margin-right:10px; margin-top:10px;">
+								<div id="printsizedescription" class="printinfotext" style="float:left; width: 230px; margin-right:10px; margin-top:10px;">
 									
 								</div>
 							</div>
@@ -223,16 +230,12 @@
 	   		  	    
 				</div>
 
-				<div class="topmargin" style="width:270px; float:left">
-					<div style="width:230px; height=100%; margin-left:25px">
-						{% for image in selected_images %}
-						<div class="tint" onclick="changePreviewImage('{{image.name}}','{{image.gallery_img_large.url}}', '{{image.description|linebreaksbr}}');">
-					      <img  src="{{image.gallery_img_small.url}}">
-					    </div>
-
-					    {% endfor %}
-
-					</div>
+				<div class="topmargin" style="float:left; width:230px; height=100%; margin-left:20px">
+					{% for image in selected_images %}
+					<div class="tint" onclick="changePreviewImage('{{image.name}}','{{image.gallery_img_large.url}}', '{{image.description|linebreaksbr}}');">
+				      <img  src="{{image.gallery_img_small.url}}">
+				    </div>
+				    {% endfor %}
 				</div>
 {% endblock %}
 

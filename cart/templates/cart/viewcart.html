@@ -1,0 +1,124 @@
+{% extends "common/base.html" %}
+
+
+{% block head %}
+<link href="/static/css/viewcart.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+
+	function calculatetotal()
+	{
+		var sum = 0;
+		prices = $('span[id*="priceval"]');
+		for(var i = 0; i < prices.length; i++)
+		{
+			sum += parseFloat(prices[i].textContent, 10);
+		}
+		
+		$('#totaltext').text(sum.toFixed(2));
+				
+	}
+	
+	
+	var cart_updated = function(res, status)
+	{
+	    if (status != "success")
+	    {
+	    	return;
+	    }
+	    
+	    $('#numcartitems').text(res.responseJSON["cartcount"]);
+		
+		$('#' + res.responseJSON["id"]).hide();
+		$('#' + res.responseJSON["id"]).remove();
+		
+		calculatetotal();
+	    
+	}
+	
+	function removeitemfromcart(id)
+	{
+		
+		var data = {"id" : id};
+			
+		var args = {type:"POST", url:"/cart/remove/", data:data, complete:cart_updated};
+        $.ajax(args);
+    
+	    return false;
+	}
+	
+	function getCookie(name)
+	{
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+	
+	var csrftoken = getCookie('csrftoken');
+	
+	function csrfSafeMethod(method)
+	{
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	
+	$.ajaxSetup({
+	    crossDomain: false, // obviates need for sameOrigin test
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type)) {
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});
+	
+{% endblock %}
+
+{% block content %}
+	<div class="centerdiv" style="overflow:hidden;width:750px;">
+		{% for item in cart %}
+        	<div id="{{item.id}}" class="transparentbox" style="position:relative; height:130px; float:left; width: 340px">
+        		<div style="float:left; width:130px;">
+		            
+		            	<img style="cursor: pointer; margin-left: 10px;" src="{{ item.product.gallery_img_small.url }}" onclick="location.href='/gallery/{{item.product.medium}}/{{item.product.category}}/{{item.product.name}}/';">
+		            
+		        </div>
+		        <div style="float: left; height: 110px; width:200px;">
+		            <span style="">
+		            	<br>
+			            {{ item.product.name }}  <br><br>
+			            <strong>Description: </strong> {{item.description}}
+			            <strong><br>Price: $</strong><span id="priceval">{{item.total_price|floatformat:2}}</span>
+		            </span>
+		        </div>
+		        <div style='float:right; margin-right:10px;'>
+		        	<img src='/static/images/remove_from_cart.png' style="cursor: pointer;" onclick="removeitemfromcart({{item.id}})">
+		        </div>
+        	</div>
+        {% endfor %}
+	</div>
+	{% if cart.items %}
+	<div class="clearfix" style="width:100%; margin-top:25px; font-size: 30px; text-align:center"]>
+    	<span>Total: $</span><span id="totaltext">{{cart.total_price}}</span>
+    </div>
+	<div class="clearfix" style="width:100%; margin-top:25px;"]>
+    	<img style="display:block; margin:auto;" src="/static/images/checkout.png" onclick="calculatetotal()">
+    </div>
+    {% else %}
+	<div class="clearfix" style="width:100%; margin-top:25px; font-size: 30px; text-align:center"]>
+    	<span>Shopping cart is currently empty</span>
+    </div>
+    {% endif %}
+{% endblock %}
+
+

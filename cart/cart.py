@@ -27,6 +27,14 @@ class Cart:
 
     def items(self):
         return self.cart.item_set.all()
+    
+    def total_price(self):
+        ret = 0
+        for item in self.items():
+            ret += item.total_price
+        return ret
+    total_price = property(total_price)
+   
 
     def new(self, request):
         cart = models.Cart(creation_date=datetime.datetime.now())
@@ -34,7 +42,7 @@ class Cart:
         request.session[CART_ID] = cart.id
         return cart
 
-    def add(self, product, unit_price, quantity=1):
+    def add(self, product, unit_price, description, quantity=1):
         try:
             item = models.Item.objects.get(
                 cart=self.cart,
@@ -44,8 +52,9 @@ class Cart:
             item = models.Item()
             item.cart = self.cart
             item.product = product
-            item.unit_price = unit_price
             item.quantity = quantity
+            item.description = description
+            item.unit_price = unit_price
             item.save()
         else:
             raise ItemAlreadyExists
@@ -60,6 +69,16 @@ class Cart:
             raise ItemDoesNotExist
         else:
             item.delete()
+
+    def get_item_by_id(self, id):
+        try:
+            item = models.Item.objects.get(
+                cart=self.cart,
+                id=id,
+            )
+            return item
+        except models.Item.DoesNotExist:
+            raise ItemDoesNotExist
 
     def update(self, product, quantity, unit_price=None):
         try:

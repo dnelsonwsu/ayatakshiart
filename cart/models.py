@@ -11,6 +11,7 @@ class Cart(models.Model):
         verbose_name = _('cart')
         verbose_name_plural = _('carts')
         ordering = ('-creation_date',)
+    
 
     def __unicode__(self):
         return unicode(self.creation_date)
@@ -27,6 +28,8 @@ class Item(models.Model):
     cart = models.ForeignKey(Cart, verbose_name=_('cart'))
     quantity = models.PositiveIntegerField(verbose_name=_('quantity'))
     unit_price = models.DecimalField(max_digits=18, decimal_places=2, verbose_name=_('unit price'))
+    description = models.CharField(max_length=300)
+    
     # product as generic relation
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

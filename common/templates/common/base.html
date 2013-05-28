@@ -35,13 +35,13 @@
 
 
 	</head>
-	<body bgcolor="#111111"> 
+	<body bgcolor="#111111" style="margin:0px"> 
 		
 		<!--Notification bar info-->
 		<div id='notification-bar' class="notificationbar" >
 			<div class='notificationbartext' style='text-align:right; margin-right: 20px; line-height: 40px;'>
 				Shopping cart: 
-				<span id="numcartitems"> {{cart.items|length}} items </span>
+				<a href="/cart/view"><span id="numcartitems"> {{cart.items|length}} </span> items</a>
 				</div>
 		</div>
 

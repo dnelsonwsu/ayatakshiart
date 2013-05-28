@@ -3,6 +3,7 @@ nav {
 	margin: 0; padding: 0; border: 0;
 	margin: 0px; 
 	text-align: center;
+	z-index:100;
 }
 
 nav ul ul {
@@ -12,7 +13,6 @@ nav ul ul {
 
 nav ul li:hover > ul {
 	display: block;
-	
 }
 
 
@@ -24,6 +24,7 @@ nav ul {
 	list-style: none;
 	position: relative;
 	display: inline-table;
+	z-index:100;
 }
 nav ul:after {
 	content: ""; clear: both; display: block;
@@ -32,6 +33,7 @@ nav ul:after {
 nav ul li {
 	margin: 0; padding: 0; border: 0;
 	float: left;
+	
 }
 
 /*hover color*/

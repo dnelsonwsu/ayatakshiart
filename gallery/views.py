@@ -1,5 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+
 from gallery.models import GalleryImage
 from gallery.models import Medium
 from gallery.models import Category
@@ -9,7 +12,8 @@ from common.views import get_common_context
 def index(request):
     return HttpResponse("Hello, world. You're the galleries index.")
 
-def gallery(request, medium, category=None):
+@ensure_csrf_cookie 
+def gallery(request, medium, category=None, image_name=None):
 
     if category == None:
         category = Category.objects.all()[0].name    #just use first category as default
@@ -23,12 +27,13 @@ def gallery(request, medium, category=None):
         print "category: " + str(category)
         print "equal? " + str(i.category.name == category)
 
-        if not i.category in category_menu and not i.category.name == category:
-            print "ADD"
+        if not i.category in category_menu:# and not i.category.name == category:
             category_menu.append(i.category)
     
-    
-    default_img = selected_images[0]
+    if image_name == None:
+        default_img = selected_images[0]
+    else:
+        default_img = get_object_or_404(GalleryImage, medium=medium, category=category, name=image_name)
     
     print_sizes = PrintSize.objects.all()
     

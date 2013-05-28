@@ -1,24 +1,61 @@
 from django.http import HttpResponse, HttpResponseServerError
 from django.utils import simplejson
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.shortcuts import render, get_list_or_404
+
+from common.views import get_common_context
 from cart import Cart
 from gallery.models import GalleryImage
 from gallery.models import PrintSize
 
-def cart_update(request):
+@ensure_csrf_cookie
+def view_cart(request):
+    
+    context = get_common_context(request)
+    
+    cart_total= Cart(request).total_price
+    print cart_total
+        
+    
+    return render(request, 'cart/viewcart.html', context)
+    
+
+def remove_item_from_cart(request):
     if request.method == "POST" and request.is_ajax:
-        msg = "The operation has been received correctly."          
+        print request.POST
+
+        ##todo 404 if cant find
+        
+        
+        cart = Cart(request)
+        item = cart.get_item_by_id(request.POST["id"])
+        
+        cart.remove(item.product)
+        
+        data = {"cartcount": len(cart.items()),
+                "id": request.POST["id"] }
+        
+        json = simplejson.dumps(data)
+        
+        return HttpResponse(json, mimetype='application/json')
+    else:
+        return  HttpResponseServerError("GET petitions are not allowed for this view.")
+
+    
+
+def add_item_to_cart(request):
+    if request.method == "POST" and request.is_ajax:
         print request.POST
 
         ##todo 404 if cant find
         img = GalleryImage.objects.get(name=request.POST['name'])
-        print "aa"
-        print str(img)
+        #print str(img)
         
         printsize = PrintSize.objects.get(print_size=request.POST['size'])
-        print printsize
+        #print printsize
         
         cart = Cart(request)
-        cart.add(product=img, unit_price=printsize.price)
+        cart.add(product=img, unit_price=printsize.price, description= printsize.print_size + " Print", quantity=1)
         
         data = {"cartcount": len(cart.items()) }
         
