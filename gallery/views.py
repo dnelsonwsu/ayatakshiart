@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import render_to_response, get_list_or_404, get_object_or_404
+from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
-
 
 from gallery.models import GalleryImage
 from gallery.models import Medium
@@ -46,7 +46,6 @@ def gallery(request, medium, category=None, image_name=None):
     context['selected_images'] = selected_images
     context['print_sizes'] = print_sizes
     
-    return render(request, 'gallery/gallery.html', context)
-
     
+    return render_to_response('gallery/gallery.html', context, context_instance=RequestContext(request))
     

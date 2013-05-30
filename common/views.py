@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 from gallery.models import Medium
 from cart import Cart
 
@@ -16,6 +17,6 @@ def get_common_context(request):
 
 def home(request):
     context = get_common_context(request)
-    return render(request, 'common/home.html', context)
+    return render_to_response('common/home.html', context, context_instance=RequestContext(request))
 
     

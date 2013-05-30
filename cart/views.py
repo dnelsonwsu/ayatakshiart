@@ -1,7 +1,9 @@
 from django.http import HttpResponse, HttpResponseServerError
 from django.utils import simplejson
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import get_list_or_404
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 
 from common.views import get_common_context
 from cart import Cart
@@ -17,7 +19,7 @@ def view_cart(request):
     print cart_total
         
     
-    return render(request, 'cart/viewcart.html', context)
+    return render_to_response('cart/viewcart.html', context, context_instance=RequestContext(request))
     
 
 def remove_item_from_cart(request):
