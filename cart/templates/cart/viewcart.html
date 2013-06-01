@@ -39,7 +39,8 @@
 	function removeitemfromcart(id)
 	{
 		
-		var data = {"id" : id};
+		var data = {"id" : id,
+					csrfmiddlewaretoken: '{{ csrf_token }}'};
 			
 		var args = {type:"POST", url:"/cart/remove/", data:data, complete:cart_updated};
         $.ajax(args);

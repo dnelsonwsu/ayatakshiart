@@ -1,6 +1,5 @@
 from django.http import HttpResponse, HttpResponseServerError
 from django.utils import simplejson
-from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import get_list_or_404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -10,7 +9,6 @@ from cart import Cart
 from gallery.models import GalleryImage
 from gallery.models import PrintSize
 
-@ensure_csrf_cookie
 def view_cart(request):
     
     context = get_common_context(request)

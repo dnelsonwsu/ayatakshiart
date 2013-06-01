@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_list_or_404, get_object_or_404
 from django.template import RequestContext
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 from gallery.models import GalleryImage
 from gallery.models import Medium
@@ -12,7 +11,6 @@ from common.views import get_common_context
 def index(request):
     return HttpResponse("Hello, world. You're the galleries index.")
 
-@ensure_csrf_cookie 
 def gallery(request, medium, category=None, image_name=None):
 
     if category == None:

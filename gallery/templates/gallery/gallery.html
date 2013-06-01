@@ -122,7 +122,9 @@
 	function addtocart()
 	{
 		var size = $('#sizedropdown').val()
-		var data = { "name":current_image_name,"size": size};
+		var data = { "name":current_image_name,
+					 "size": size,
+					 csrfmiddlewaretoken: '{{ csrf_token }}'};
 			
 		var args = { type:"POST", url:"/cart/add/", data:data, complete:cart_updated };
         $.ajax(args);
