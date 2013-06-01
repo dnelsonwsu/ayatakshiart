@@ -6,9 +6,6 @@ import faq.views
 import contact.views
 import cart.views
 
-from django.conf.urls.static import static
-
-
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -38,11 +35,11 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
-    #urlpatterns += patterns('',
-    #    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
-    #    'document_root': settings.STATIC_ROOT}))
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.STATIC_ROOT}))
     
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
