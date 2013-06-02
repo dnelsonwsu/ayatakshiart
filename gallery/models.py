@@ -32,6 +32,16 @@ class GalleryImage(models.Model):
     gallery_img_small = models.ImageField(upload_to='small_gallery_imgs/')
     
     
+    def image_thumb(self):
+        if self.gallery_img_small:
+            return '<img src="/media/%s" width="100" height="100" />' % (self.gallery_img_small)
+        else:
+            return '(Sin imagen)'
+    image_thumb.allow_tags = True
+    image_thumb.short_description = 'Gallery Picture'
+    
+    name.admin_order_field='medium'
+    
     '''CATEGORIES = (
         ('Oil', 'Oil'),
         ('Water Color', 'Water Color'),
