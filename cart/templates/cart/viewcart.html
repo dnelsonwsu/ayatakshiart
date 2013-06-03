@@ -9,7 +9,11 @@
 
 	var cartitems= {
 	{% for item in cart %} 
-	'{{item.id}}':['{{item.description}}' +  ' - {{item.product.name}}', {{item.total_price}}],
+	'{{item.id}}':['{{item.description}}' +  ' - {{item.product.name}}', {{item.total_price}}]
+	
+	{% if not forloop.last %}
+	,
+	{% endif %}
 	{% endfor %}
 	}
 
