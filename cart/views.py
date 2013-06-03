@@ -13,12 +13,17 @@ def view_cart(request):
     
     context = get_common_context(request)
     
-    cart_total= Cart(request).total_price
-    print cart_total
-        
+    #cart_total= Cart(request).total_price
     
     return render_to_response('cart/viewcart.html', context, context_instance=RequestContext(request))
+
+def thankyou(request):
+    context = get_common_context(request)
     
+    cart = Cart(request)
+    cart.clear()   
+    
+    return render_to_response('cart/thankyou.html', context, context_instance=RequestContext(request))
 
 def remove_item_from_cart(request):
     if request.method == "POST" and request.is_ajax:

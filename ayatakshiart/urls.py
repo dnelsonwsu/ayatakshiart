@@ -14,10 +14,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'ayatakshiart.views.home', name='home'),
     # url(r'^ayatakshiart/', include('ayatakshiart.foo.urls')),
+    url(r'^$', common.views.index, name='index'),
+
     url(r'^gallery/', include('gallery.urls')),
     url(r'^home/', common.views.home, name='home'),
+    url(r'^thankyou/', common.views.thankyou, name='thankyou'),
     url(r'^bio/', bio.views.bio, name='bio'),
     url(r'^url/', bio.views.bio, name='url'),
     url(r'^faq/', faq.views.faq, name='faq'),

@@ -7,13 +7,65 @@
 
 {% block javascript %}
 
+	var cartitems= {
+	{% for item in cart %} 
+	'{{item.id}}':['{{item.description}}' +  ' - {{item.product.name}}', {{item.total_price}}],
+	{% endfor %}
+	}
+
+	function checkout()
+	{
+		var submitparams = {'cmd':'_cart',
+					  'upload': '1',
+					  'business': 'test@ayatakshiart.com',
+					  	};
+					  	
+
+		var i = 1;
+		for(item in cartitems)
+		{
+			submitparams['item_name_' + i] = cartitems[item][0];
+			submitparams['amount_' + i] = cartitems[item][1];
+			i++;
+		}
+		
+		console.log(submitparams);
+		
+		post_to_url('https://www.paypal.com/cgi-bin/webscr', submitparams)
+	}
+
+
+	function post_to_url(path, params, method)
+	{
+	    method = method || "post"; // Set method to post by default if not specified.
+	
+	    // The rest of this code assumes you are not using a library.
+	    // It can be made less wordy if you use one.
+	    var form = document.createElement("form");
+	    form.setAttribute("method", method);
+	    form.setAttribute("action", path);
+	
+	    for(var key in params) {
+	        if(params.hasOwnProperty(key)) {
+	            var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", key);
+	            hiddenField.setAttribute("value", params[key]);
+	
+	            form.appendChild(hiddenField);
+	         }
+	    }
+	
+	    document.body.appendChild(form);
+	    form.submit();
+	}
+
 	function calculatetotal()
 	{
 		var sum = 0;
-		prices = $('span[id*="priceval"]');
-		for(var i = 0; i < prices.length; i++)
+		for(var item in cartitems)
 		{
-			sum += parseFloat(prices[i].textContent, 10);
+			sum += cartitems[item][1];
 		}
 		
 		$('#totaltext').text(sum.toFixed(2));
@@ -27,6 +79,8 @@
 	    {
 	    	return;
 	    }
+	    
+	    delete cartitems[res.responseJSON["id"]];
 	    
 	    $('#numcartitems').text(res.responseJSON["cartcount"]);
 		
@@ -111,7 +165,7 @@
     	<span>Total: $</span><span id="totaltext">{{cart.total_price}}</span>
     </div>
 	<div class="clearfix" style="width:100%; margin-top:25px;"]>
-    	<img style="display:block; margin:auto;" src="/static/images/checkout.png" onclick="">
+		<img style="display:block; margin:auto;" src="/static/images/checkout.png" onclick="checkout()" >			    	
     </div>
     {% else %}
 	<div class="clearfix" style="width:100%; margin-top:25px; font-size: 30px; text-align:center"]>

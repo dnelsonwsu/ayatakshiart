@@ -22,3 +22,22 @@
 	padding-bottom:10px; 
 	background-color:rgba(0,0,0,0.5);
 }
+
+.mainframe
+{
+	background-image: url(/static/images/background.png);
+}
+
+.checkout
+{
+	display:block; 
+	margin:auto; 
+	background-image: url(/static/images/checkout.png);
+	background-position:  0px 0px;
+    background-repeat: no-repeat;
+    border: 0px;
+    width: 204px;
+    height: 49px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
