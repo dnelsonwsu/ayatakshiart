@@ -42,7 +42,7 @@
 				<div class="notificationbartext" style='float:right; margin-right: 50px; line-height: 40px;'>
 					<span style="margin-left:5px;"><strong id="numcartitems">{{cart.items|length}} </strong></span> item[s]
 				</div>
-				<div style="float:right; margin-top: 2px;"><img src='/static/images/cart.png'></div>
+				<div style="float:right; margin-top: 2px;"><img style="border: 0px;" src='/static/images/cart.png'></div>
 			</a>
 		</div>
 
@@ -65,19 +65,19 @@
 				<div style="width: 808px; height: 32px;">
 					<nav style="margin-top: 0px; margin-bottom:0px">
 						<ul style="padding-left: 0px; padding-right: 0px;">	
-							<li><img src="/static/images/menu_bar/left.png" class="menu_image"></li>
-							<li><div class="menu_image" style="height:32px"><a class="darken" href="/home/"><img src="/static/images/menu_bar/home.png" ></a></div></li>
-							<li><div class="darken menu_image" style="height:32px: margin-bottom:0px"><img src="/static/images/menu_bar/gallery.png"></div>
+							<li><img class="noborder" src="/static/images/menu_bar/left.png" class="menu_image"></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/home/"><img class="noborder" src="/static/images/menu_bar/home.png" ></a></div></li>
+							<li><div class="darken menu_image" style="height:32px: margin-bottom:0px"><img class="noborder" src="/static/images/menu_bar/gallery.png"></div>
 							<ul>
 									{% for medium_menu_item in mediums_menu %}
 									<li><a href="/gallery/{{medium_menu_item.name}}/">{{medium_menu_item.name}}</a></li>
 									{% endfor %}
 								</ul>
 							</li>
-							<li><div class="menu_image" style="height:32px"><a class="darken" href="/bio/"><img src="/static/images/menu_bar/bio.png" ></a></div></li>
-							<li><div class="menu_image" style="height:32px"><a class="darken" href="/faq/"><img src="/static/images/menu_bar/faq.png"></a></div></li>
-							<li><div class="menu_image" style="height:32px"><a class="darken" href="/contact/"><img src="/static/images/menu_bar/contact.png"></a></div></li>
-							<li><img src="/static/images/menu_bar/right.png" class="menu_image"></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/bio/"><img class="noborder" src="/static/images/menu_bar/bio.png" ></a></div></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/faq/"><img class="noborder" src="/static/images/menu_bar/faq.png"></a></div></li>
+							<li><div class="menu_image" style="height:32px"><a class="darken" href="/contact/"><img class="noborder" src="/static/images/menu_bar/contact.png"></a></div></li>
+							<li><img class="noborder" src="/static/images/menu_bar/right.png" class="menu_image"></li>
 								
 						</ul>
 					</nav>
