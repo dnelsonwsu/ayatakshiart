@@ -39,11 +39,13 @@
 		}
 	}
 	
-	var GalleryImages = 
+	var preload_imgs = 
 	[
 		{% for image in selected_images %}
 	    "{{image.gallery_img_large.url}}",
 	    {% endfor %}
+	    "/static/images/checkout_small.png",
+	    
 	]
 	
 	
@@ -51,11 +53,11 @@
 	{
 		if (document.images) 
 		{
-			for (var i = 0; i < GalleryImages.length; i++)
+			for (var i = 0; i < preload_imgs.length; i++)
 			{
 				preload_images[i] = new Image();
 				preload_images[i].onload = function(){console.log('loaded');}
-				preload_images[i].src = GalleryImages[i];
+				preload_images[i].src = preload_imgs[i];
 			}
 		}
 	}
