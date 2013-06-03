@@ -42,7 +42,11 @@
 	var preload_imgs = 
 	[
 		{% for image in selected_images %}
-	    "{{image.gallery_img_large.url}}",
+	    "{{image.gallery_img_large.url}}"
+
+	    {% if not forloop.last %}
+         	,
+        {% endif %}	
 	    {% endfor %}
 	    "/static/images/checkout_small.png",
 
