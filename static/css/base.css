@@ -42,6 +42,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active{
 	float:left;
 	position: relative;
 	cursor: pointer;
+	border-width: 0px;
 
 }
 
@@ -93,7 +94,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active{
 	overflow-y: hidden; 
 
 	background-color: black;
-	background-image: url(/static/images/background_dark.png);
+	background-image: url(/static/images/background_dark.jpg);
 	background-repeat:no-repeat;
 	border-radius:20px;
 	-moz-border-radius: 5px;
