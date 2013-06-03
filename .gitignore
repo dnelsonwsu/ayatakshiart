@@ -3,4 +3,4 @@ media/large_gallery_imgs
 media/small_gallery_imgs
 ayatakshiart/settings.py
 *.pyc
-
+*.db
