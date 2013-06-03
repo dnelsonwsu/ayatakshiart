@@ -5,6 +5,10 @@ import url("/static/css/normalize.css")
 	color: #e7cc4f;
 }
 
+.frameheaderimg
+{
+	margin-top: 15px;
+}
 
 .insideframe
 {
