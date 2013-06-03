@@ -1,0 +1,28 @@
+
+
+.faqquestion
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size:16px;
+	color: #e7cc4f;
+	cursor: pointer;
+	margin-top: 10px;
+	
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+}
+
+.faqquestion:hover
+{
+	color: #ffea86; 
+}
+
+.faqtext
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size:14px;
+	color: #FFFFFF;
+	display:none;
+}

@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Simonetta:400);
+
 .descriptiontext
 {
 	font-family: Verdana, Geneva, sans-serif;
@@ -6,9 +8,9 @@
 }
 
 .sidemenu{
-	font-family: 'Playfair Display SC', serif;
+	font-family: 'Simonetta', cursive;
 	color: #dfd560;
-	font-size: 18px;
+	font-size: 22px;
 }
 
 .tint {
@@ -48,9 +50,13 @@
 	background: rgba(255,255,255, 0.2);
 }
 
+.mainframe
+{
+	background-image: url(/static/images/background.png);
+}
 
 .listbox  {
-   background: transparent;
+   background: #000000;
    padding: 2px;
    font-size: 16px;
    line-height: 1;

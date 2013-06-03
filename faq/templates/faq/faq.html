@@ -1,9 +1,74 @@
 {% extends "common/base.html" %}
 
 
+
+{% block head %}
+<link href="/static/css/faq.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+
+lastAnswerShown = null;
+function faqquestionclick(showid)
+{
+	/*if(lastAnswerShown != null)
+	{
+		$('#' + lastAnswerShown).hide();
+		lastAnswerShown = showid;
+	}
+	else
+	{
+		lastAnswerShown = showid;
+	}*/
+	
+	if( $('#' + showid).is(":visible") )
+	{
+		$('#' + showid).hide();
+	}
+	else
+	{
+		$('#' + showid).show();
+	}
+}
+
+{% endblock %}
+
 {% block content %}
-<div class="textcolor">
-<p>FAQ goes here.</p>
+<div class="insideframe">
+	<center class="insideframeheader">
+		Frequently asked Questions
+	</center>
+	
+	<center>
+		<div class="faqquestion" onclick="faqquestionclick('answer1')">
+			Tell me a little bit about your background- where are you from originally?
+		</div>
+		<div id="answer1" class="faqtext">
+			Answer goes here.
+		</div>
+		
+		<div class="faqquestion" onclick="faqquestionclick('answer2')">
+			Where did you go to college?
+		</div>
+		<div id="answer2" class="faqtext">
+			Answer goes here.
+		</div>
+		
+		<div class="faqquestion" onclick="faqquestionclick('answer3')">
+			 How do you think your painting and drawing style developed?
+		</div>
+		<div id="answer3" class="faqtext">
+			Answer goes here.
+		</div>
+		
+		<div class="faqquestion" onclick="faqquestionclick('answer4')">
+			What do your paintings mean?
+		</div>
+		<div id="answer4" class="faqtext">
+			Answer goes here. Answer goes here.Answer goes here.Answer goes here.Answer goes here.Answer goes here.Answer goes here.Answer goes here.
+		</div>
+	</center>
+	
 </div>
 
 {% endblock %}
